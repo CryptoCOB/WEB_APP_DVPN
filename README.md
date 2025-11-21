@@ -401,8 +401,10 @@ This project demonstrates:
 9. **Error Handling**: Try-catch and error responses
 10. **Network Communication**: Inter-node HTTP requests
 
-## Author
+## Authors
 COMP229 Group Project - Web Application Development
+Odette Nguenouho, Marc Harty, Goodness Ohazurike
+
 
 ## License
 MIT License
