@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DVPN Project - UML Diagrams</title>
+    <title>DVPN Dynamics - Architecture Diagrams</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -14,8 +14,8 @@
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #333;
+            background-color: #1a1a1a;
+            color: #f0f0f0;
             min-height: 100vh;
             padding: 20px;
         }
@@ -27,7 +27,6 @@
         
         .header {
             text-align: center;
-            color: white;
             margin-bottom: 40px;
             animation: slideDown 0.6s ease-out;
         }
@@ -35,12 +34,13 @@
         .header h1 {
             font-size: 2.5em;
             margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            color: #4ECDC4;
+            text-shadow: 0 0 10px rgba(78, 205, 196, 0.3);
         }
         
         .header p {
             font-size: 1.1em;
-            opacity: 0.9;
+            color: #aaa;
         }
         
         .diagrams-grid {
@@ -51,9 +51,10 @@
         }
         
         .diagram-card {
-            background: white;
+            background: #2d2d2d;
             border-radius: 12px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 1px solid #444;
             overflow: hidden;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             animation: fadeInUp 0.6s ease-out;
@@ -61,15 +62,17 @@
         
         .diagram-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 50px rgba(0,0,0,0.3);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.6);
+            border-color: #4ECDC4;
         }
         
         .diagram-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            background: #222;
+            color: #4ECDC4;
             padding: 15px 20px;
             font-weight: bold;
             font-size: 1.1em;
+            border-bottom: 1px solid #444;
         }
         
         .diagram-content {
@@ -79,12 +82,16 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            background: #2d2d2d;
         }
         
         .mermaid {
-            background: #f9f9f9;
+            background: transparent;
             padding: 10px;
             border-radius: 8px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
         }
         
         .full-width {
@@ -92,13 +99,14 @@
         }
         
         .description {
-            background: #f0f4ff;
+            background: #252525;
             padding: 15px;
-            border-left: 4px solid #667eea;
-            margin-top: 10px;
+            border-left: 4px solid #4ECDC4;
+            margin-top: 0;
             font-size: 0.9em;
-            color: #555;
+            color: #ccc;
             line-height: 1.6;
+            border-top: 1px solid #444;
         }
         
         @keyframes slideDown {
@@ -125,39 +133,53 @@
         
         .footer {
             text-align: center;
-            color: white;
+            color: #888;
             margin-top: 40px;
             padding: 20px;
-            border-top: 1px solid rgba(255,255,255,0.2);
+            border-top: 1px solid #333;
         }
         
         .code-section {
-            background: white;
+            background: #2d2d2d;
             border-radius: 12px;
             padding: 20px;
             margin: 20px 0;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 1px solid #444;
         }
         
         .code-section h2 {
-            color: #667eea;
+            color: #4ECDC4;
             margin-bottom: 15px;
         }
         
+        .code-section h3 {
+            color: #f0f0f0;
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+        
         pre {
-            background: #f5f5f5;
+            background: #1a1a1a;
+            color: #e0e0e0;
             padding: 15px;
             border-radius: 8px;
             overflow-x: auto;
             font-size: 0.85em;
+            border: 1px solid #444;
         }
         
         .architecture-flow {
-            background: white;
+            background: #2d2d2d;
             border-radius: 12px;
             padding: 20px;
             margin: 20px 0;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 1px solid #444;
+        }
+        
+        .architecture-flow h2 {
+            color: #4ECDC4;
         }
         
         .flow-step {
@@ -165,13 +187,14 @@
             align-items: center;
             margin: 15px 0;
             padding: 15px;
-            background: #f9f9f9;
+            background: #252525;
             border-radius: 8px;
+            border: 1px solid #333;
         }
         
         .step-number {
-            background: #667eea;
-            color: white;
+            background: #4ECDC4;
+            color: #1a1a1a;
             width: 40px;
             height: 40px;
             border-radius: 50%;
@@ -184,24 +207,39 @@
         }
         
         .step-content h3 {
-            color: #333;
+            color: #f0f0f0;
             margin-bottom: 5px;
         }
         
         .step-content p {
-            color: #666;
+            color: #aaa;
             font-size: 0.9em;
+        }
+
+        .back-btn {
+            display: inline-block;
+            color: #1a1a1a;
+            text-decoration: none;
+            font-weight: bold;
+            background: #4ECDC4;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background-color 0.2s;
+        }
+        .back-btn:hover {
+            background-color: #3dbdb4;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div style="text-align: left; margin-bottom: 20px;">
-            <a href="index.html" style="color: white; text-decoration: none; font-weight: bold; background: rgba(255,255,255,0.2); padding: 8px 15px; border-radius: 5px;">&larr; Back to Home</a>
+            <a href="index.html" class="back-btn">&larr; Back to Home</a>
         </div>
         <div class="header">
-            <h1>🔐 DVPN Project - UML Diagrams</h1>
-            <p>Simplified Decentralized VPN - COMP229 Group Project</p>
+            <h1>🔐 DVPN Dynamics</h1>
+            <p>System Architecture & UML Diagrams</p>
+            <p style="font-size: 0.9em; margin-top: 10px; color: #888;">Team: Marc Harty & Odette Bakam nguenouho</p>
         </div>
         
         <div class="diagrams-grid">
@@ -211,6 +249,10 @@
                 <div class="diagram-content">
                     <div class="mermaid">
                         graph TB
+                        %% Styling for Dark Mode
+                        classDef default fill:#333,stroke:#4ECDC4,stroke-width:2px,color:#fff;
+                        classDef cluster fill:#222,stroke:#666,color:#fff;
+                        
                         subgraph Client ["Client Application"]
                             A["Register/Login<br/>CRUD Users<br/>Send Encrypted Data"]
                         end
@@ -240,6 +282,8 @@
                         D -->|Encrypt & Send| F
                         F -->|Forward| G
                         G -->|Response| A
+                        
+                        linkStyle default stroke:#aaa,stroke-width:2px;
                     </div>
                 </div>
                 <div class="description">
@@ -253,6 +297,8 @@
                 <div class="diagram-content">
                     <div class="mermaid">
                         classDiagram
+                        classDef default fill:#333,stroke:#4ECDC4,stroke-width:2px,color:#fff;
+                        
                         class User {
                             -_id: ObjectId
                             -username: String
@@ -304,6 +350,7 @@
                 <div class="diagram-content">
                     <div class="mermaid">
                         sequenceDiagram
+                        %% Dark Theme Config
                         participant Client
                         participant MainServer
                         participant EncService
@@ -347,6 +394,9 @@
                 <div class="diagram-content">
                     <div class="mermaid">
                         graph TB
+                        classDef default fill:#333,stroke:#4ECDC4,stroke-width:2px,color:#fff;
+                        classDef cluster fill:#222,stroke:#666,color:#fff;
+                        
                         subgraph Client["Client Machine"]
                             Postman["Postman / Browser"]
                         end
@@ -366,6 +416,8 @@
                         Main -.->|Send| Toronto
                         Toronto -.->|Forward| Halifax
                         Halifax -.->|Response| Main
+                        
+                        linkStyle default stroke:#aaa,stroke-width:2px;
                     </div>
                 </div>
                 <div class="description">
@@ -557,15 +609,51 @@ npm start          # Port 3000
         </div>
         
         <div class="footer">
-            <p>DVPN - COMP229 Group Project</p>
+            <p>DVPN Dynamics - COMP229 Group Project</p>
             <p>Built with Node.js, Express, MongoDB, and AES-256 Encryption</p>
-            <p style="margin-top: 10px; opacity: 0.8; font-size: 0.9em;">Last Updated: November 17, 2025</p>
+            <p style="margin-top: 10px; opacity: 0.8; font-size: 0.9em;">Last Updated: November 2025</p>
         </div>
     </div>
     
     <script>
-        mermaid.initialize({ startOnLoad: true, theme: 'default' });
-        mermaid.contentLoaded();
+        // Initialize Mermaid with High Contrast Theme
+        mermaid.initialize({ 
+            startOnLoad: true, 
+            theme: 'base',
+            themeVariables: {
+                darkMode: true,
+                background: '#2d2d2d',
+                
+                // General Node Colors (Flowcharts, Classes) - Bright Teal Nodes with Dark Text
+                primaryColor: '#4ECDC4',
+                primaryTextColor: '#1a1a1a',
+                primaryBorderColor: '#ffffff',
+                lineColor: '#ffffff',
+                secondaryColor: '#f0f0f0',
+                tertiaryColor: '#fff',
+
+                // Sequence Diagram Specifics
+                actorBkg: '#4ECDC4',          // Teal background for actors
+                actorBorder: '#ffffff',
+                actorTextColor: '#1a1a1a',    // Dark text for actors (High Contrast)
+                actorLineColor: '#ffffff',    // White vertical lines
+                
+                signalColor: '#ffffff',       // White arrows
+                signalTextColor: '#ffffff',   // White text for messages
+                
+                labelBoxBkgColor: '#2d2d2d',
+                labelBoxBorderColor: '#ffffff',
+                labelTextColor: '#ffffff',
+                
+                loopTextColor: '#ffffff',
+                
+                noteBkgColor: '#ffffff',
+                noteTextColor: '#1a1a1a',
+                
+                activationBkgColor: '#333333',
+                activationBorderColor: '#ffffff'
+            }
+        });
     </script>
 </body>
 </html>

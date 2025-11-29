@@ -403,7 +403,7 @@ This project demonstrates:
 
 ## Authors
 COMP229 Group Project - Web Application Development
-Odette Nguenouho, Marc Harty, Goodness Ohazurike
+Odette Nguenouho, Marc Harty
 
 
 ## License

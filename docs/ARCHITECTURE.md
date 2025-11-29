@@ -587,6 +587,6 @@ Total /dvpn/send:     ~120-280ms (typical)
 
 ---
 
-**Generated:** November 17, 2025  
+**Last Updated:** November 17, 2025  
 **Project:** DVPN - COMP229 Group Project  
 **Status:** Complete & Ready for Testing
