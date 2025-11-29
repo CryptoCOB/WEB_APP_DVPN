@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>DVPN Dynamics - Final Presentation</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reset.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/night.min.css">
+
+    <!-- Theme used for syntax highlighted code -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/highlight/monokai.min.css">
+    
+    <style>
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 20px;
+        }
+        .project-logo {
+            max-height: 100px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(78, 205, 196, 0.5);
+        }
+        .app-screenshot {
+            max-height: 300px;
+            border: 2px solid #4ECDC4;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .accent {
+            color: #4ECDC4;
+        }
+        .team-container {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 30px;
+        }
+        .team-member {
+            flex: 1;
+            text-align: center;
+        }
+        .mugshot {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #4ECDC4;
+            margin-bottom: 15px;
+            background-color: #333; /* Placeholder color */
+        }
+        .role-title {
+            color: #4ECDC4;
+            font-weight: bold;
+            font-size: 0.8em;
+        }
+        .responsibilities {
+            font-size: 0.6em;
+            text-align: left;
+            margin: 0 auto;
+            width: 80%;
+        }
+        .text-left {
+            text-align: left;
+        }
+        .small-text {
+            font-size: 0.7em;
+        }
+    </style>
+  </head>
+  <body>
+    <a href="index.html" style="position: fixed; top: 20px; left: 20px; z-index: 1000; color: #4ECDC4; text-decoration: none; font-family: sans-serif; font-weight: bold; background: rgba(0,0,0,0.5); padding: 10px; border-radius: 5px;">&larr; Home</a>
+    <div class="reveal">
+      <div class="slides">
+        
+        <!-- Slide 1: Title Page -->
+        <section>
+            <div class="logo-container">
+                <img src="media/DVPN.jpeg" alt="DVPN Logo" class="project-logo">
+            </div>
+            <h1>DVPN <span class="accent">Dynamics</span></h1>
+            <h3>Decentralized VPN Prototype</h3>
+            
+            <!-- PLACEHOLDER: Replace src with actual screenshot of your app -->
+            <div style="background: #222; width: 600px; height: 300px; margin: 20px auto; display: flex; align-items: center; justify-content: center; border: 2px dashed #555;">
+                <span style="color: #888;">[Insert App Screenshot Here]</span>
+                <!-- <img src="../media/screenshot.png" class="app-screenshot"> -->
+            </div>
+            
+            <p>
+                <small>COMP229 Group Project</small>
+            </p>
+        </section>
+
+        <!-- Slide 2: Roles -->
+        <section>
+            <h2>Meet the <span class="accent">Team</span></h2>
+            <div class="team-container">
+                <!-- Member 1 -->
+                <div class="team-member">
+                    <!-- PLACEHOLDER: Add Marc's photo to media folder and update src -->
+                    <img src="https://via.placeholder.com/150" alt="Marc Harty" class="mugshot">
+                    <h4>Marc Harty</h4>
+                    <p class="role-title">Full Stack Developer</p>
+                    <ul class="responsibilities">
+                        <li>Backend Architecture (Node.js)</li>
+                        <li>Security Implementation (AES/JWT)</li>
+                        <li>Database Schema Design</li>
+                    </ul>
+                </div>
+                <!-- Member 2 -->
+                <div class="team-member">
+                    <!-- PLACEHOLDER: Add Odette's photo to media folder and update src -->
+                    <img src="https://via.placeholder.com/150" alt="Odette Bakam nguenouho" class="mugshot">
+                    <h4>Odette Bakam nguenouho</h4>
+                    <p class="role-title">Frontend & Documentation</p>
+                    <ul class="responsibilities">
+                        <li>UI/UX Design</li>
+                        <li>Documentation & UML</li>
+                        <li>Presentation Development</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 3: Web Application Overview -->
+        <section>
+            <h2>Web Application <span class="accent">Overview</span></h2>
+            <div class="text-left" style="margin-left: 10%;">
+                <p><strong>Project Type:</strong> Custom Secure Communication Platform (DVPN)</p>
+                <p><strong>Summary:</strong></p>
+                <p class="small-text">
+                    DVPN Dynamics is a web-based simulation of a decentralized virtual private network. 
+                    Unlike traditional VPNs that rely on a central server, our application demonstrates 
+                    how data can be securely routed through multiple nodes (Toronto → Halifax) to ensure 
+                    anonymity and data integrity.
+                </p>
+                <p><strong>Core Value:</strong> Privacy, Security, and Decentralization.</p>
+            </div>
+        </section>
+
+        <!-- Slide 4: Planning (Vertical Slides) -->
+        <section>
+            <section>
+                <h2>Project <span class="accent">Planning</span></h2>
+                <div class="text-left">
+                    <h4>Planned Features</h4>
+                    <ul class="small-text">
+                        <li>✅ <strong>User Authentication:</strong> Secure Login/Register with JWT.</li>
+                        <li>✅ <strong>Multi-hop Routing:</strong> Simulation of data passing through nodes.</li>
+                        <li>✅ <strong>Encryption:</strong> AES-256-CBC for payload protection.</li>
+                        <li>✅ <strong>Logging:</strong> MongoDB storage for transaction history.</li>
+                    </ul>
+                </div>
+            </section>
+            <section>
+                <h2>Planning <span class="accent">Challenges</span></h2>
+                <div class="text-left">
+                    <h4>Features Not Implemented</h4>
+                    <ul class="small-text">
+                        <li>❌ <strong>True P2P Networking:</strong> 
+                            <br><em>Reason:</em> Complexity of NAT traversal and time constraints. We simulated nodes as API endpoints instead.
+                        </li>
+                        <li>❌ <strong>Dynamic Node Discovery:</strong> 
+                            <br><em>Reason:</em> Requires a Distributed Hash Table (DHT). We used static routing for the prototype.
+                        </li>
+                    </ul>
+                    <br>
+                    <h4>Execution Challenges</h4>
+                    <ul class="small-text">
+                        <li>Handling asynchronous encryption/decryption flows.</li>
+                        <li>Ensuring consistent state across simulated nodes.</li>
+                    </ul>
+                </div>
+            </section>
+        </section>
+
+        <!-- Slide 5: Instructions -->
+        <section>
+            <section>
+                <h2><span class="accent">Instructions</span></h2>
+                <p>How to use DVPN Dynamics</p>
+            </section>
+            
+            <section>
+                <h3>1. Access & Authentication</h3>
+                <ol class="small-text">
+                    <li>Navigate to the <strong>Login Page</strong>.</li>
+                    <li>Click "Register" to create a new account.</li>
+                    <li>Enter your credentials to access the Dashboard.</li>
+                </ol>
+                <pre><code class="hljs" data-trim>
+POST /api/auth/login
+{
+  "username": "user1",
+  "password": "password123"
+}
+                </code></pre>
+            </section>
+
+            <section>
+                <h3>2. Sending Secure Data</h3>
+                <ol class="small-text">
+                    <li>On the Dashboard, locate the <strong>"New Packet"</strong> form.</li>
+                    <li>Enter the destination IP and your message payload.</li>
+                    <li>Click <strong>"Route Packet"</strong>.</li>
+                    <li>The system encrypts the data and forwards it to the Toronto Node.</li>
+                </ol>
+            </section>
+
+            <section>
+                <h3>3. Viewing Logs</h3>
+                <ol class="small-text">
+                    <li>Navigate to the <strong>"Transmission Logs"</strong> section.</li>
+                    <li>View the history of sent packets.</li>
+                    <li>Verify the status (Encrypted/Decrypted) and timestamps.</li>
+                </ol>
+            </section>
+        </section>
+
+        <!-- Slide 6: Site Demo -->
+        <section data-background-gradient="linear-gradient(to bottom, #283b95, #17b2c3)">
+            <h1 style="font-size: 4em;">Site <span style="color: white;">Demo</span></h1>
+            <p>Live Demonstration of Functionality</p>
+            <ul class="small-text" style="list-style: none;">
+                <li>✓ Authentication</li>
+                <li>✓ Database Access</li>
+                <li>✓ Responsive UI</li>
+                <li>✓ Secure Routing</li>
+            </ul>
+        </section>
+
+        <!-- Slide 7: Team Retrospective -->
+        <section>
+            <h2>Team <span class="accent">Retrospective</span></h2>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div style="border: 1px solid #555; padding: 15px; border-radius: 10px;">
+                    <h4>Challenges Overcome</h4>
+                    <ul class="small-text">
+                        <li>Learning the intricacies of the <code>crypto</code> module in Node.js.</li>
+                        <li>Coordinating git merges and resolving conflicts.</li>
+                        <li>Connecting the frontend to the backend API effectively.</li>
+                    </ul>
+                </div>
+                <div style="border: 1px solid #555; padding: 15px; border-radius: 10px;">
+                    <h4>If We Started Again...</h4>
+                    <ul class="small-text">
+                        <li>Adopt <strong>Test-Driven Development (TDD)</strong> earlier to catch bugs.</li>
+                        <li>Spend more time on the initial <strong>UI Wireframing</strong>.</li>
+                        <li>Implement a more robust error handling strategy from day one.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 8: Future Possibilities -->
+        <section>
+            <h2>Future <span class="accent">Possibilities</span></h2>
+            <p>Given more time, we would expand the project by:</p>
+            <ul>
+                <li><strong>Client-Side App:</strong> Developing a desktop Electron app for easier VPN usage.</li>
+                <li><strong>Real-time Metrics:</strong> Visualizing node traffic and latency using WebSockets.</li>
+                <li><strong>Smart Contracts:</strong> Integrating Blockchain for payment of bandwidth usage.</li>
+                <li><strong>Global Node Network:</strong> Allowing users to host their own relay nodes.</li>
+            </ul>
+        </section>
+
+        <!-- Slide 9: Thank You -->
+        <section>
+            <div class="logo-container">
+                <img src="media/DVPN.jpeg" alt="DVPN Logo" class="project-logo" style="max-height: 150px;">
+            </div>
+            <h2>Thank <span class="accent">You</span></h2>
+            <p>Questions?</p>
+        </section>
+
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/notes/notes.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/markdown/markdown.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/highlight/highlight.min.js"></script>
+    <script>
+      // More info about initialization & config:
+      // - https://revealjs.com/initialization/
+      // - https://revealjs.com/config/
+      Reveal.initialize({
+        hash: true,
+        plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+      });
+    </script>
+  </body>
+</html>
