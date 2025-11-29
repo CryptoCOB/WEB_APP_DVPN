@@ -1,0 +1,112 @@
+@startuml DVPN_DataFlow
+
+title DVPN Encrypted Data Flow Diagram
+
+skinparam BackgroundColor #FEFEFE
+skinparam ArrowColor #333333
+
+start
+
+:Client sends data;
+note right
+  Endpoint: POST /dvpn/send
+  Body: {"data": "message"}
+  Header: Authorization: Bearer JWT
+end note
+
+:Server receives request;
+:Middleware validates JWT;
+
+if (JWT valid?) then (no)
+  :Return 401 Unauthorized;
+  stop
+else (yes)
+endif
+
+:Extract user from token;
+:Extract data from request;
+
+:Prepare payload object;
+note right
+  {
+    data: "message",
+    sender: username,
+    timestamp: ISO-8601
+  }
+end note
+
+:Serialize to JSON string;
+
+:Call EncryptionService.encryptAES();
+note right
+  Algorithm: AES-256-CBC
+  Mode: Cipher Block Chaining
+  Key: 32 bytes (from .env)
+  IV: 16 bytes (from .env)
+  Output: Base64 string
+end note
+
+:Encrypted string created;
+
+:Send to Toronto Node;
+note right
+  POST http://localhost:4001/receive
+  Body: {encryptedData: base64string}
+end note
+
+:Toronto Node receives request;
+:Toronto extracts encrypted data;
+
+:Toronto forwards to Halifax;
+note right
+  POST http://localhost:4002/decrypt
+  Body: {encryptedData: base64string}
+  Toronto acts as relay only
+end note
+
+:Halifax Node receives request;
+:Halifax extracts encrypted data;
+
+:Call EncryptionService.decryptAES();
+note right
+  Reverse process:
+  1. Base64 → Hex
+  2. Hex → Buffer
+  3. Decipher with key+IV
+  4. Result: Plaintext
+end note
+
+:Plaintext JSON created;
+
+:Halifax parses JSON;
+
+:Halifax creates response object;
+note right
+  {
+    from: "halifax",
+    decrypted: {original data},
+    success: true
+  }
+end note
+
+:Halifax sends to Toronto;
+
+:Toronto forwards to Client;
+
+:Client receives response;
+
+:Return final response to user;
+note right
+  {
+    success: true,
+    originalData: "message",
+    fromHalifax: {
+      from: "halifax",
+      decrypted: {...}
+    }
+  }
+end note
+
+stop
+
+@enduml

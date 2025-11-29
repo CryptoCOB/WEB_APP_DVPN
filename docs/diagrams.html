@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DVPN Project - UML Diagrams</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+            animation: slideDown 0.6s ease-out;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .diagrams-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .diagram-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        .diagram-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.3);
+        }
+        
+        .diagram-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 20px;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        
+        .diagram-content {
+            padding: 20px;
+            min-height: 400px;
+            overflow-x: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .mermaid {
+            background: #f9f9f9;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        
+        .full-width {
+            grid-column: 1 / -1;
+        }
+        
+        .description {
+            background: #f0f4ff;
+            padding: 15px;
+            border-left: 4px solid #667eea;
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #555;
+            line-height: 1.6;
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 40px;
+            padding: 20px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .code-section {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        
+        .code-section h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+        
+        pre {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-size: 0.85em;
+        }
+        
+        .architecture-flow {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        
+        .flow-step {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+        
+        .step-number {
+            background: #667eea;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .step-content h3 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .step-content p {
+            color: #666;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔐 DVPN Project - UML Diagrams</h1>
+            <p>Simplified Decentralized VPN - COMP229 Group Project</p>
+        </div>
+        
+        <div class="diagrams-grid">
+            <!-- Architecture Diagram -->
+            <div class="diagram-card">
+                <div class="diagram-header">🏗️ System Architecture</div>
+                <div class="diagram-content">
+                    <div class="mermaid">
+                        graph TB
+                        subgraph Client ["Client Application"]
+                            A["Register/Login<br/>CRUD Users<br/>Send Encrypted Data"]
+                        end
+                        
+                        subgraph MainServer ["Main Server (3000)"]
+                            B["Express.js<br/>Auth Middleware<br/>Routes & Controllers"]
+                        end
+                        
+                        subgraph Services ["Services"]
+                            C["Encryption<br/>AES-256-CBC"]
+                            D["DVPN Client<br/>HTTP Communication"]
+                        end
+                        
+                        subgraph Database ["Database"]
+                            E["MongoDB<br/>User Model"]
+                        end
+                        
+                        subgraph Nodes ["DVPN Nodes"]
+                            F["Toronto Node<br/>Port 4001<br/>Relay"]
+                            G["Halifax Node<br/>Port 4002<br/>Decrypt"]
+                        end
+                        
+                        A -->|HTTP| B
+                        B -->|Uses| C
+                        B -->|Uses| D
+                        B -->|Query/Update| E
+                        D -->|Encrypt & Send| F
+                        F -->|Forward| G
+                        G -->|Response| A
+                    </div>
+                </div>
+                <div class="description">
+                    <strong>Overview:</strong> The main server handles authentication, user management, and DVPN routing. Data is encrypted, sent through Toronto node (relay), then to Halifax node for decryption.
+                </div>
+            </div>
+            
+            <!-- Class Diagram -->
+            <div class="diagram-card">
+                <div class="diagram-header">📚 Class Structure</div>
+                <div class="diagram-content">
+                    <div class="mermaid">
+                        classDiagram
+                        class User {
+                            -_id: ObjectId
+                            -username: String
+                            -password: String
+                            -role: String
+                            +save()
+                            +comparePassword()
+                        }
+                        
+                        class UserController {
+                            +register()
+                            +login()
+                            +getUsers()
+                            +updateUser()
+                            +deleteUser()
+                        }
+                        
+                        class DVPNController {
+                            +sendThroughDVPN()
+                        }
+                        
+                        class EncryptionService {
+                            -AES_KEY
+                            -AES_IV
+                            +encryptAES()
+                            +decryptAES()
+                        }
+                        
+                        class DVPNClient {
+                            -TORONTO_URL
+                            -HALIFAX_URL
+                            +sendToToronto()
+                            +sendToHalifax()
+                        }
+                        
+                        UserController --> User
+                        DVPNController --> DVPNClient
+                        DVPNClient --> EncryptionService
+                    </div>
+                </div>
+                <div class="description">
+                    <strong>Classes:</strong> User model with password hashing, controllers handling business logic, encryption service for AES-256-CBC, and DVPN client for node communication.
+                </div>
+            </div>
+            
+            <!-- Sequence Diagram -->
+            <div class="diagram-card full-width">
+                <div class="diagram-header">📊 Data Flow Sequence</div>
+                <div class="diagram-content">
+                    <div class="mermaid">
+                        sequenceDiagram
+                        participant Client
+                        participant MainServer
+                        participant EncService
+                        participant Toronto
+                        participant Halifax
+                        participant MongoDB
+                        
+                        Client->>MainServer: POST /users/register
+                        MainServer->>MongoDB: Store user (bcrypt)
+                        MongoDB-->>MainServer: User created
+                        MainServer-->>Client: {success, user}
+                        
+                        Client->>MainServer: POST /users/login
+                        MainServer->>MongoDB: Find user
+                        MongoDB-->>MainServer: User data
+                        MainServer->>MainServer: Verify password
+                        MainServer->>MainServer: Generate JWT
+                        MainServer-->>Client: {token, user}
+                        
+                        Client->>MainServer: POST /dvpn/send + JWT
+                        MainServer->>MainServer: Verify JWT
+                        MainServer->>EncService: encryptAES(data)
+                        EncService-->>MainServer: Base64 encrypted
+                        MainServer->>Toronto: POST /receive
+                        Toronto->>Halifax: POST /decrypt
+                        Halifax->>EncService: decryptAES(data)
+                        EncService-->>Halifax: Plaintext
+                        Halifax-->>Toronto: {decrypted}
+                        Toronto-->>MainServer: Response
+                        MainServer-->>Client: {success, data}
+                    </div>
+                </div>
+                <div class="description">
+                    <strong>Flow:</strong> User registration → hashed password stored in MongoDB. Login generates JWT. Data sent through DVPN is encrypted, routed through Toronto to Halifax, decrypted, and response returned.
+                </div>
+            </div>
+            
+            <!-- Deployment Diagram -->
+            <div class="diagram-card">
+                <div class="diagram-header">🚀 Deployment Architecture</div>
+                <div class="diagram-content">
+                    <div class="mermaid">
+                        graph TB
+                        subgraph Client["Client Machine"]
+                            Postman["Postman / Browser"]
+                        end
+                        
+                        subgraph Local["Local Development"]
+                            Main["Main Server<br/>Port 3000"]
+                            Toronto["Toronto Node<br/>Port 4001"]
+                            Halifax["Halifax Node<br/>Port 4002"]
+                        end
+                        
+                        subgraph DB["Database"]
+                            MongoDB["MongoDB<br/>Port 27017"]
+                        end
+                        
+                        Postman -.->|HTTP| Main
+                        Main -->|Stores| MongoDB
+                        Main -.->|Send| Toronto
+                        Toronto -.->|Forward| Halifax
+                        Halifax -.->|Response| Main
+                    </div>
+                </div>
+                <div class="description">
+                    <strong>Deployment:</strong> All servers run on localhost in development. Main server on 3000, Toronto node on 4001, Halifax on 4002. MongoDB on standard port 27017.
+                </div>
+            </div>
+            
+            <!-- Entity Relationship Diagram -->
+            <div class="diagram-card">
+                <div class="diagram-header">🗄️ Database Schema</div>
+                <div class="diagram-content">
+                    <div class="mermaid">
+                        erDiagram
+                        USERS ||--o{ SESSIONS : has
+                        
+                        USERS {
+                            ObjectId _id
+                            string username "unique"
+                            string password "hashed with bcryptjs"
+                            string role "enum: user, admin"
+                            date createdAt "default: Date.now"
+                        }
+                        
+                        SESSIONS {
+                            string jwt_token "24h expiry"
+                            ObjectId user_id "references USERS"
+                            date created_at
+                        }
+                    </div>
+                </div>
+                <div class="description">
+                    <strong>Database:</strong> MongoDB with User collection. Passwords hashed with bcryptjs. JWT tokens have 24-hour expiration. Role-based access control.
+                </div>
+            </div>
+        </div>
+        
+        <!-- Data Flow Architecture -->
+        <div class="architecture-flow">
+            <h2>🔄 Complete DVPN Data Flow Process</h2>
+            
+            <div class="flow-step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>Client Initiates</h3>
+                    <p>POST /dvpn/send with Authorization header containing JWT token</p>
+                </div>
+            </div>
+            
+            <div class="flow-step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>Authentication</h3>
+                    <p>Auth middleware verifies JWT signature and extracts user information</p>
+                </div>
+            </div>
+            
+            <div class="flow-step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>Payload Preparation</h3>
+                    <p>Create JSON object with data, sender, and timestamp</p>
+                </div>
+            </div>
+            
+            <div class="flow-step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h3>Encryption (AES-256-CBC)</h3>
+                    <p>Serialize JSON and encrypt with 32-byte key and 16-byte IV</p>
+                </div>
+            </div>
+            
+            <div class="flow-step">
+                <div class="step-number">5</div>
+                <div class="step-content">
+                    <h3>Send to Toronto Node</h3>
+                    <p>POST encrypted Base64 data to Toronto relay node on port 4001</p>
+                </div>
+            </div>
+            
+            <div class="flow-step">
+                <div class="step-number">6</div>
+                <div class="step-content">
+                    <h3>Toronto Relays</h3>
+                    <p>Toronto node forwards encrypted data to Halifax without modification</p>
+                </div>
+            </div>
+            
+            <div class="flow-step">
+                <div class="step-number">7</div>
+                <div class="step-content">
+                    <h3>Halifax Decrypts</h3>
+                    <p>Halifax node decrypts using same key and IV, retrieves plaintext data</p>
+                </div>
+            </div>
+            
+            <div class="flow-step">
+                <div class="step-number">8</div>
+                <div class="step-content">
+                    <h3>Return Response</h3>
+                    <p>Halifax sends decrypted data back through Toronto to main server</p>
+                </div>
+            </div>
+            
+            <div class="flow-step">
+                <div class="step-number">9</div>
+                <div class="step-content">
+                    <h3>Client Receives</h3>
+                    <p>Main server returns complete response with original and decrypted data</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- API Endpoints Reference -->
+        <div class="code-section">
+            <h2>📡 API Endpoints Reference</h2>
+            <h3>User Management</h3>
+            <pre><code>POST   /users/register           Register new user
+POST   /users/login              Login and receive JWT
+GET    /users                    Get all users
+PUT    /users/:id                Update user (protected)
+DELETE /users/:id                Delete user (protected)</code></pre>
+            
+            <h3>DVPN Routes</h3>
+            <pre><code>POST   /dvpn/send                Send data through DVPN tunnel (protected)</code></pre>
+            
+            <h3>Health Checks</h3>
+            <pre><code>GET    /health                   Main server health (port 3000)
+GET    /health                   Toronto node health (port 4001)
+GET    /health                   Halifax node health (port 4002)</code></pre>
+        </div>
+        
+        <!-- Encryption Details -->
+        <div class="code-section">
+            <h2>🔐 Encryption Specifications</h2>
+            <pre><code>Algorithm:      AES-256-CBC (Advanced Encryption Standard)
+Key Size:       256 bits (32 bytes)
+IV Size:        128 bits (16 bytes)
+Block Size:     128 bits
+Mode:           Cipher Block Chaining
+Encoding:       Base64 for HTTP transmission
+
+Key:            0123456789abcdef0123456789abcdef (32 bytes)
+IV:             fedcba9876543210 (16 bytes)
+
+Encryption Process:
+  1. Plaintext data
+  2. Serialize to JSON string
+  3. Create cipher with AES-256-CBC algorithm
+  4. Encrypt using key and IV
+  5. Convert to hex
+  6. Encode as Base64
+  7. Transmit over HTTP
+
+Decryption Process:
+  1. Receive Base64 encrypted data
+  2. Decode from Base64
+  3. Convert to hex
+  4. Create decipher with same key and IV
+  5. Decrypt hex string
+  6. Return plaintext JSON
+  7. Parse and process</code></pre>
+        </div>
+        
+        <!-- Quick Start Guide -->
+        <div class="code-section">
+            <h2>🚀 Quick Start Guide</h2>
+            <pre><code># 1. Install Dependencies
+cd server
+npm install
+
+# 2. Setup Environment
+cp .env.example .env
+# Edit .env with your MongoDB URI
+
+# 3. Start MongoDB
+mongod
+
+# 4. Start Nodes (in separate terminals)
+npm run toronto    # Terminal 1: Port 4001
+npm run halifax    # Terminal 2: Port 4002
+
+# 5. Start Main Server (Terminal 3)
+npm start          # Port 3000
+
+# 6. Test with Postman
+# Register → Login → Send DVPN data
+</code></pre>
+        </div>
+        
+        <div class="footer">
+            <p>DVPN - COMP229 Group Project</p>
+            <p>Built with Node.js, Express, MongoDB, and AES-256 Encryption</p>
+            <p style="margin-top: 10px; opacity: 0.8; font-size: 0.9em;">Last Updated: November 17, 2025</p>
+        </div>
+    </div>
+    
+    <script>
+        mermaid.initialize({ startOnLoad: true, theme: 'default' });
+        mermaid.contentLoaded();
+    </script>
+</body>
+</html>

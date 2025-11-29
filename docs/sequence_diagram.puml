@@ -1,0 +1,63 @@
+@startuml DVPN_Sequence
+
+title DVPN Encrypted Data Flow - Sequence Diagram
+
+participant "Client" as Client
+participant "Main Server\n(Port 3000)" as MainServer
+participant "Encryption\nService" as EncService
+participant "Toronto Node\n(Port 4001)" as Toronto
+participant "Halifax Node\n(Port 4002)" as Halifax
+participant "MongoDB" as DB
+
+autonumber
+
+Client -> MainServer: POST /users/register\n{username, password}
+MainServer -> DB: Create user\n(password hashed with bcrypt)
+DB -> MainServer: User created
+MainServer -> Client: {success, token}
+
+Client -> MainServer: POST /users/login\n{username, password}
+MainServer -> DB: Find user
+DB -> MainServer: User data
+MainServer -> MainServer: Compare passwords
+MainServer -> MainServer: Generate JWT token\n(expires 24h)
+MainServer -> Client: {token, user}
+
+Client -> MainServer: POST /dvpn/send\nHeader: Authorization: Bearer <JWT>\nBody: {data: "Hello encrypted"}
+
+MainServer -> MainServer: Verify JWT token
+MainServer -> EncService: encryptAES("Hello...")
+
+EncService -> EncService: AES-256-CBC\nAlgorithm: AES\nKey: 32 bytes\nIV: 16 bytes
+EncService -> MainServer: Base64 encrypted
+
+MainServer -> Toronto: POST /receive\n{encryptedData}
+
+Toronto -> Toronto: Receive encrypted payload
+Toronto -> Halifax: POST /decrypt\n{encryptedData}
+
+Halifax -> EncService: decryptAES(encrypted)
+EncService -> EncService: Reverse process:\nBase64 → Hex → Decrypt
+EncService -> Halifax: Plaintext data
+
+Halifax -> Halifax: Parse JSON response
+Halifax -> Toronto: {from: "halifax",\ndecrypted: {...}}
+
+Toronto -> MainServer: Return Halifax response
+
+MainServer -> Client: {success,\noriginalData,\nfromHalifax: {...}}
+
+note over EncService
+  AES-256-CBC Details:
+  Key: 0123456789abcdef0123456789abcdef (32 bytes)
+  IV: fedcba9876543210 (16 bytes)
+  Mode: Cipher Block Chaining
+end note
+
+note over Toronto, Halifax
+  Toronto = Relay (no decryption)
+  Halifax = Final destination (decrypts)
+  Both communicate via HTTP POST
+end note
+
+@enduml

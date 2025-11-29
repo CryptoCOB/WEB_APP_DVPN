@@ -34,14 +34,14 @@ dist/
 build/
 
 # Assignment Documentation (cleaned up for production)
-COMPLETION_STATUS.md
-docs/architecture.puml
-docs/class_diagram.puml
-docs/sequence_diagram.puml
-docs/dataflow.puml
-docs/deployment.puml
-docs/diagrams.html
-docs/ARCHITECTURE.md
+# COMPLETION_STATUS.md
+# docs/architecture.puml
+# docs/class_diagram.puml
+# docs/sequence_diagram.puml
+# docs/dataflow.puml
+# docs/deployment.puml
+# docs/diagrams.html
+# docs/ARCHITECTURE.md
 
 # Temporary files
 *.tmp

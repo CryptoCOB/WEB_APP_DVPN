@@ -1,0 +1,137 @@
+@startuml DVPN_ClassDiagram
+
+title DVPN Class Diagram - COMP229
+
+package "Models" {
+  class User {
+    - _id: ObjectId
+    - username: String
+    - password: String (hashed)
+    - role: String (default: "user")
+    - createdAt: Date
+    --
+    + save()
+    + comparePassword(enteredPassword): boolean
+    # pre-save: hashPassword()
+  }
+}
+
+package "Controllers" {
+  class UserController {
+    + register(req, res): void
+    + login(req, res): void
+    + getUsers(req, res): void
+    + updateUser(req, res): void
+    + deleteUser(req, res): void
+  }
+
+  class DVPNController {
+    + sendThroughDVPN(req, res): void
+  }
+}
+
+package "Services" {
+  class EncryptionService {
+    - AES_KEY: Buffer (32 bytes)
+    - AES_IV: Buffer (16 bytes)
+    - ALGORITHM: String = "aes-256-cbc"
+    --
+    + encryptAES(plaintext): String
+    + decryptAES(ciphertext): String
+    - createCipher(): Cipher
+    - createDecipher(): Decipher
+  }
+
+  class DVPNClient {
+    - TORONTO_URL: String
+    - HALIFAX_URL: String
+    --
+    + sendToToronto(payload): Promise<Response>
+    + sendToHalifax(payload): Promise<Response>
+    - encryptAndSend(url, payload): Promise
+  }
+}
+
+package "Middleware" {
+  class AuthMiddleware {
+    + verify(req, res, next): void
+    - extractToken(authHeader): String
+    - decodeJWT(token): Object
+  }
+}
+
+package "Routes" {
+  class UserRoutes {
+    + POST /register
+    + POST /login
+    + GET /users
+    + PUT /users/:id
+    + DELETE /users/:id
+  }
+
+  class DVPNRoutes {
+    + POST /dvpn/send (protected)
+  }
+}
+
+package "Nodes" {
+  class TorontoNode {
+    - PORT: Number = 4001
+    - HALIFAX_URL: String
+    --
+    + POST /receive(encryptedData): void
+    + GET /health(): void
+    - forwardToHalifax(data): Promise
+  }
+
+  class HalifaxNode {
+    - PORT: Number = 4002
+    --
+    + POST /decrypt(encryptedData): void
+    + GET /health(): void
+    - decryptAndRespond(data): Object
+  }
+}
+
+package "Config" {
+  class DatabaseConfig {
+    - mongoUri: String
+    --
+    + connectDB(): Promise<Connection>
+  }
+}
+
+' Relationships
+UserController --> User : uses
+UserController --> EncryptionService : uses (indirectly)
+DVPNController --> DVPNClient : uses
+DVPNController --> EncryptionService : uses (indirectly)
+DVPNClient --> EncryptionService : uses
+DVPNClient --> TorontoNode : communicates with
+TorontoNode --> HalifaxNode : forwards to
+HalifaxNode --> EncryptionService : uses
+
+AuthMiddleware --> User : validates
+UserRoutes --> UserController : routes to
+DVPNRoutes --> DVPNController : routes to
+DVPNRoutes --> AuthMiddleware : uses
+
+User --> DatabaseConfig : stored in
+
+note right of EncryptionService
+  AES-256-CBC Implementation:
+  - Uses Node.js crypto module
+  - 32-byte key for AES-256
+  - 16-byte IV for CBC mode
+  - Base64 encoding for transmission
+end note
+
+note right of AuthMiddleware
+  JWT Verification:
+  - Reads Authorization header
+  - Validates signature
+  - Attaches user to request
+  - Expires in 24 hours
+end note
+
+@enduml

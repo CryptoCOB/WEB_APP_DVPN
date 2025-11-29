@@ -1,0 +1,84 @@
+@startuml DVPN_Architecture
+
+title DVPN System Architecture - COMP229
+
+!define ACCENT_COLOR #FF6B6B
+!define PRIMARY_COLOR #4ECDC4
+!define SECONDARY_COLOR #45B7D1
+!define DANGER_COLOR #FFE66D
+
+skinparam BackgroundColor #F7F7F7
+skinparam ArrowColor #555555
+skinparam ActorBorderColor #555555
+
+rectangle "Client Application" as Client <<component>> #ACCENT_COLOR {
+  usecase "Register User" as UC1
+  usecase "Login (Get JWT)" as UC2
+  usecase "Send Encrypted Data" as UC3
+  usecase "CRUD Users" as UC4
+}
+
+rectangle "Main Server (Port 3000)" as MainServer <<component>> #PRIMARY_COLOR {
+  component "Express.js" as Express
+  component "Auth Middleware" as AuthMW
+  component "User Controller" as UserCtrl
+  component "DVPN Controller" as DVPNCtrl
+  component "Routes" as Routes
+}
+
+rectangle "Database" as DB <<component>> #SECONDARY_COLOR {
+  database "MongoDB" as Mongo
+  component "User Model" as UserModel
+}
+
+rectangle "Toronto Node (Port 4001)" as Toronto <<component>> #FFE66D {
+  component "Relay Server" as TorontoRelay
+  component "/receive Endpoint" as TorontoEP
+}
+
+rectangle "Halifax Node (Port 4002)" as Halifax <<component>> #45B7D1 {
+  component "Decryption Server" as HalifaxDecrypt
+  component "/decrypt Endpoint" as HalifaxEP
+}
+
+rectangle "Services" as Services <<component>> #ACCENT_COLOR {
+  component "Encryption Service" as EncService
+  component "DVPN Client" as DVPNClient
+}
+
+Client --> UC1 : Register
+Client --> UC2 : Login
+Client --> UC3 : Encrypt & Send
+Client --> UC4 : Manage Users
+
+UC1 --> Express : HTTP POST
+UC2 --> Express : HTTP POST
+UC3 --> Express : HTTP POST (JWT)
+UC4 --> Express : HTTP GET/PUT/DELETE
+
+Express --> Routes : Route handling
+Routes --> AuthMW : Verify JWT
+AuthMW --> UserCtrl : User operations
+AuthMW --> DVPNCtrl : DVPN operations
+
+UserCtrl --> UserModel : Query/Update
+UserModel --> Mongo : CRUD
+
+DVPNCtrl --> DVPNClient : Send encrypted
+DVPNClient --> EncService : Encrypt payload
+DVPNClient --> Toronto : Forward to Toronto
+
+Toronto --> TorontoRelay : Receive
+TorontoRelay --> TorontoEP : Process
+TorontoEP --> Halifax : Forward to Halifax
+
+Halifax --> HalifaxDecrypt : Receive
+HalifaxDecrypt --> HalifaxEP : Decrypt
+HalifaxEP --> EncService : Decrypt AES
+EncService --> HalifaxEP : Decrypted data
+HalifaxEP --> Toronto : Return response
+
+Toronto --> Client : Final response
+Halifax --> Client : Via Toronto
+
+@enduml

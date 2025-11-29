@@ -1,0 +1,49 @@
+@startuml DVPN_DeploymentDiagram
+
+title DVPN Deployment Diagram
+
+skinparam BackgroundColor #FEFEFE
+
+artifact "Client Machine" as ClientMachine {
+  component "Postman\nor Browser" as Client
+}
+
+artifact "Development Server" as DevServer {
+  component "Main Server\n(Port 3000)" as MainServer
+  component "Toronto Node\n(Port 4001)" as Toronto
+  component "Halifax Node\n(Port 4002)" as Halifax
+}
+
+artifact "Database Server" as DBServer {
+  component "MongoDB\n(Port 27017)" as MongoDB
+}
+
+Client -.-> MainServer : HTTP GET/POST/PUT/DELETE
+MainServer -.-> MongoDB : Query/Update
+
+MainServer -.-> Toronto : HTTP POST /receive
+Toronto -.-> Halifax : HTTP POST /decrypt
+Halifax -.-> MainServer : Response
+
+note right of ClientMachine
+  Testing Environment:
+  - Postman for API testing
+  - Can be on same machine or remote
+end note
+
+note right of DevServer
+  All three servers run on localhost:
+  - Main Server: 3000
+  - Toronto Node: 4001
+  - Halifax Node: 4002
+  Can run in separate terminals
+end note
+
+note right of DBServer
+  MongoDB (Local Development):
+  - Local instance on 27017
+  - Database: dvpn_db
+  - Production: use cloud DB (Atlas)
+end note
+
+@enduml
