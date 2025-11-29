@@ -30,6 +30,13 @@ This is **NOT a real VPN**. It only routes encrypted JSON payloads between two n
   server.js               - Main Express server
   package.json            - Dependencies
   .env.example            - Environment variables template
+
+/client
+  /src
+    App.jsx               - React Simulation Logic
+    index.css             - Styling
+  package.json            - Client dependencies
+  vite.config.js          - Vite configuration
 ```
 
 ## Data Flow
@@ -123,6 +130,15 @@ npm run halifax
 ```bash
 npm start
 ```
+
+### 6. Start React Client (Simulation)
+
+Open a new terminal:
+```bash
+cd client
+npm run dev
+```
+Access the simulation at `http://localhost:5173` or via the Presentation.
 
 You should see:
 ```
